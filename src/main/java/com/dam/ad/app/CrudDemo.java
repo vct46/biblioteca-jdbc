@@ -11,7 +11,7 @@ public class CrudDemo {
         dao.findAll().forEach(System.out::println);
 
         System.out.println(" === INSERT ===");
-                var nuevo = new Libro("Clean Code", "9780132350884-2", 2008, true);
+                var nuevo = new Libro("Juego de Tronos", "9780132350884-2", 2008, true);
         int id = dao.insert(nuevo);
         System.out.println("Insertado con id=" + id + " -> " + nuevo);
 
