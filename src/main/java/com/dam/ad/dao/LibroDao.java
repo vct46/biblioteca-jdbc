@@ -126,4 +126,28 @@ public class LibroDao {
                     e);
         }
     }
+    
+    public List<Libro> searchByTitulo(String texto) {
+        
+        
+        String sql = "SELECT id, titulo, isbn, anio, disponible FROM libro WHERE LOWER(titulo) LIKE ?";
+        List<Libro> resultados = new ArrayList<>();
+        
+        try (Connection con = Db.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            
+            
+            ps.setString(1, "%" + texto.toLowerCase() + "%");
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    
+                    resultados.add(mapRow(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error en la búsqueda por título", e);
+        }
+        return resultados;
+    }
 }
